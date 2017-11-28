@@ -44,7 +44,6 @@ def load_parameters():
         "ckpt_path": "{}".format(args.ckptpath),
         "max_words": 50000,
         "embedding_dim": 300,
-        "rnn_hidden_dim": 150,
         "seq_length": args.seq_length,
         "batch_size": args.batch_size,
         "learning_rate": args.learning_rate,
