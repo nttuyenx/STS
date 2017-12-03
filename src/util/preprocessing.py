@@ -2,6 +2,7 @@
 from keras import backend as K
 from keras.preprocessing.sequence import pad_sequences
 import numpy as np
+import random
 
 def pearsonr(x, y):
     """
@@ -70,15 +71,15 @@ def tokenizing_and_padding(data_path, tokenizer, max_len):
     
     return sent1_seq_pad, sent2_seq_pad, labels
 
-def build_emb_matrix(emb_path, word_index):
+def build_emb_matrix(emb_path, vocab_size, word_index):
     """
     Load word embeddings.
     """
-    embedding_matrix = np.zeros((50000, 300), dtype='float32')
+    embedding_matrix = np.zeros((vocab_size, 300), dtype='float32')
     with open(emb_path, 'r') as f:
         for i, line in enumerate(f):
             s = line.split(' ')
-            if (s[0] in word_index) and (word_index[s[0]] < 50000):
+            if (s[0] in word_index) and (word_index[s[0]] < vocab_size):
                 embedding_matrix[word_index[s[0]], :] = np.asarray(s[1:])
 
     return embedding_matrix
