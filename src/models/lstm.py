@@ -43,9 +43,10 @@ class STSModel(object):
         dev_labels_to_probs = encode_labels(labels_dev)
         
         print("Loading embeddings...")
-        embedding_matrix = build_emb_matrix(FIXED_PARAMETERS["embedding_path"], word_index)
-
-        embedding_layer = Embedding(50000, 300,
+        vocab_size = min(max_words, len(word_index)) + 1
+        embedding_matrix = build_emb_matrix(FIXED_PARAMETERS["embedding_path"], vocab_size, word_index)
+    
+        embedding_layer = Embedding(vocab_size, 300,
                                     weights=[embedding_matrix],
                                     input_length=max_len,
                                     trainable=emb_train,

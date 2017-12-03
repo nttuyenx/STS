@@ -38,9 +38,10 @@ class STSModel(object):
         sent1_dev_seq, sent2_dev_seq, labels_dev  = tokenizing_and_padding(FIXED_PARAMETERS["dev_path"], tokenizer, max_len)
 
         print("Loading embeddings...")
-        embedding_matrix = build_emb_matrix(FIXED_PARAMETERS["embedding_path"], word_index)
+        vocab_size = min(max_words, len(word_index)) + 1
+        embedding_matrix = build_emb_matrix(FIXED_PARAMETERS["embedding_path"], vocab_size, word_index)
  
-        embedding_layer = Embedding(50000, 300,
+        embedding_layer = Embedding(vocab_size, 300,
                                     weights=[embedding_matrix],
                                     input_length=max_len,
                                     trainable=emb_train,
